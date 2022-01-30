@@ -3,8 +3,10 @@
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Restaurant;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class RestaurantTest extends TestCase {
+    use DatabaseMigrations;
 
     public function test_can_get_all_restaurants() {
         Restaurant::factory()->count(30)->create();
