@@ -18,6 +18,7 @@ class RestaurantTest extends TestCase {
                 '*' => [
                     'id',
                     'name',
+                    'image',
                     'address',
                     'latitude',
                     'longitude',
@@ -40,6 +41,7 @@ class RestaurantTest extends TestCase {
             'data' => [
                 'id',
                 'name',
+                'image',
                 'address',
                 'latitude',
                 'longitude',
@@ -69,6 +71,7 @@ class RestaurantTest extends TestCase {
                 '*' => [
                     'id',
                     'name',
+                    'image',
                     'amount',
                     'description',
                     'products'
@@ -94,6 +97,7 @@ class RestaurantTest extends TestCase {
             'data' => [
                 'id',
                 'name',
+                'image',
                 'amount',
                 'description',
                 'products',
@@ -118,6 +122,7 @@ class RestaurantTest extends TestCase {
                 '*' => [
                     'id',
                     'name',
+                    'image',
                     'amount',
                 ]
             ],
@@ -142,6 +147,7 @@ class RestaurantTest extends TestCase {
                 '*' => [
                     'id',
                     'name',
+                    'image',
                     'amount',
                 ]
             ],
