@@ -9,6 +9,7 @@ class MenuResource extends JsonResource {
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => $this->image,
             'amount' => $this->amount,
             'description' => $this->description,
             'products' => $this->products->makeHidden(['amount', 'pivot'])

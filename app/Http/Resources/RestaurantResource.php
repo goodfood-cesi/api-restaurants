@@ -9,6 +9,7 @@ class RestaurantResource extends JsonResource {
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => $this->image,
             'address' => $this->address,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
