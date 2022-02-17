@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        for ($i = 0; $i < 1; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $restaurant = Restaurant::factory()->create();
             $products = Product::factory(15)->create();
             for($j = 0; $j < 5; $j++){
