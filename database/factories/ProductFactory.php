@@ -23,7 +23,7 @@ class ProductFactory extends Factory {
         return [
             'name' => $this->faker->name,
             'image' => 'https://source.unsplash.com/random/240x240/?food',
-            'amount' => $this->faker->randomFloat(2,0,1000),
+            'amount' => $this->faker->randomFloat(2,3,15),
             'description' => $this->faker->text(),
         ];
     }
