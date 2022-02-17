@@ -22,7 +22,7 @@ class RestaurantFactory extends Factory {
     {
         return [
             'name' => $this->faker->name,
-            'image' => 'https://source.unsplash.com/random/720x240/?restaurants',
+            'image' => 'https://source.unsplash.com/random/2160x720/?restaurants',
             'address' => $this->faker->address,
             'latitude' => $this->faker->latitude(36.1426653,59.3696544),
             'longitude' => $this->faker->longitude(-5.4716872,28.0401234),
