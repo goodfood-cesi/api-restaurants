@@ -23,7 +23,7 @@ class MenuFactory extends Factory {
         return [
             'name' => $this->faker->name,
             'image' => 'https://source.unsplash.com/random/128x128/?food',
-            'amount' => $this->faker->randomFloat(2,0,1000),
+            'amount' => $this->faker->randomFloat(2,7,20),
             'description' => $this->faker->text(),
         ];
     }
