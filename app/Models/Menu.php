@@ -35,6 +35,6 @@ class Menu extends Model {
     }
 
     public function products(): BelongsToMany {
-        return $this->belongsToMany(Product::class, 'menus_products');
+        return $this->belongsToMany(Product::class, 'menus_products')->withPivot('quantity');
     }
 }
