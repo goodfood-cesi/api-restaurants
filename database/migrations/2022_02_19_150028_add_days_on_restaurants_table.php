@@ -31,7 +31,7 @@ class AddDaysOnRestaurantsTable extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
+        Schema::table('restaurants', function (Blueprint $table) {
             $table->dropColumn('monday');
             $table->dropColumn('tuesday');
             $table->dropColumn('wednesday');
