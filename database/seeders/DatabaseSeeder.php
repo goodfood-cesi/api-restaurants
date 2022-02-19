@@ -17,11 +17,13 @@ class DatabaseSeeder extends Seeder {
         for ($i = 0; $i < 50; $i++) {
             $restaurant = Restaurant::factory()->create();
             $products = Product::factory(15)->create();
+            foreach ($products as $product) {
+                $product->restaurants()->attach($restaurant);
+            }
             for($j = 0; $j < 5; $j++){
                 $menu = Menu::factory()->create();
                 $menu->restaurants()->attach($restaurant);
                 foreach ($products->random(random_int(1,4)) as $product){
-                    $product->restaurants()->attach($restaurant);
                     $product->menus()->attach($menu, ['quantity' => random_int(1,3)]);
                 }
             }
