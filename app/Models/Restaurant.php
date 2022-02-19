@@ -22,6 +22,13 @@ class Restaurant extends Model {
         'latitude',
         'longitude',
         'phone',
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday'
     ];
 
     /**
