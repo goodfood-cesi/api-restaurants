@@ -23,6 +23,7 @@ class RestaurantTest extends TestCase {
                     'latitude',
                     'longitude',
                     'phone',
+                    "days",
                 ]
             ],
             'meta' => [
@@ -46,6 +47,7 @@ class RestaurantTest extends TestCase {
                 'latitude',
                 'longitude',
                 'phone',
+                "days",
             ],
             'meta' => [
                 'success',
