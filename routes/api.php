@@ -19,3 +19,5 @@ $router->get('/restaurants/{restaurant_id}/products', ['as' => 'restaurants.prod
 $router->get('/restaurants/{restaurant_id}/menus', ['as' => 'restaurants.menus.index', 'uses' => 'MenuController@index']);
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.show', 'uses' => 'MenuController@show']);
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}/products', ['as' => 'restaurants.menus.products.index', 'uses' => 'ProductController@index']);
+
+$router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.delete', 'uses' => 'RestaurantController@delete'])
