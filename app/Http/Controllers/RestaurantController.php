@@ -20,11 +20,30 @@ class RestaurantController extends Controller{
         }
     }
 
-    public function delete(int $restaurant_id): JsonResponse {
+    public function update(Request $request, int $restaurant_id): JsonResponse {
         try {
-            return $this->success(Restaurant::findOrFail($restaurant_id)=>delete()), 'Restaurant deleted');
+            $restaurant = Restaurant::find($restaurant_id);
+
+            //Règles de validation ? Jour de la semaine ?
+
+            $name->name =  $request->get('name');
+            $image->image = $request->get('image');
+            $address->address = $request->get('address');
+            $latitude->latitude = $request->get('latitude');
+            $longitude->longitude = $request->get('longitude');
+            $phone->phone = $request->get('phone');
+            /*$monday->monday = $request->get('monday');
+            $tuesday->tuesday = $request->get('tuesday');
+            $wednesday->wednesday = $request->get('wednesday');
+            $thursday->thursday = $request->get('thursday');
+            $friday->friday = $request->get('friday');
+            $saturday->saturday = $request->get('saturday');
+            $sunday->sunday = $request->get('sunday');*/
+            $restaurant->save();
+
+            return $this->success('Restaurant updated.');
         } catch (Exception $e){
-            return $this->error('Restaurant does not exist.');
+            return $this->error('New restaurant informations does not match.');
         }
     }
 }
