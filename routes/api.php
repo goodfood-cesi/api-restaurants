@@ -20,4 +20,6 @@ $router->get('/restaurants/{restaurant_id}/menus', ['as' => 'restaurants.menus.i
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.show', 'uses' => 'MenuController@show']);
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}/products', ['as' => 'restaurants.menus.products.index', 'uses' => 'ProductController@index']);
 
-$router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.delete', 'uses' => 'RestaurantController@delete'])
+$router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.delete', 'uses' => 'RestaurantController@delete']);
+
+//$router->patch();
