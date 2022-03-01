@@ -19,4 +19,12 @@ class RestaurantController extends Controller{
             return $this->error('Restaurant does not exist.');
         }
     }
+
+    public function delete(int $restaurant_id): JsonResponse {
+        try {
+            return $this->success(Restaurant::findOrFail($restaurant_id)=>delete()), 'Restaurant deleted');
+        } catch (Exception $e){
+            return $this->error('Restaurant does not exist.');
+        }
+    }
 }
