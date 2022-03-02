@@ -21,4 +21,10 @@ class ProductController extends Controller{
             return $this->error('Resource does not exist.');
         }
     }
+
+    public function show(int $restaurant_id, int $product_id): JsonResponse {
+        return $this->success(new ProductResource(
+            Restaurant::findOrFail($restaurant_id)->products()->findOrFail($product_id)
+        ), 'Products loaded');
+    }
 }
