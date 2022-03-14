@@ -21,5 +21,4 @@ $router->get('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restauran
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}/products', ['as' => 'restaurants.menus.products.index', 'uses' => 'ProductController@index']);
 
 $router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.delete', 'uses' => 'RestaurantController@delete']);
-
-//$router->patch();
+$router->patch('/restaurants/{restaurant_id}', ['as' => 'restaurants.update', 'uses' => 'RestaurantController@update']);
