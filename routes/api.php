@@ -13,12 +13,15 @@
 |
 */
 
-$router->get('/restaurants', ['as' => 'restaurants.index', 'uses' => 'RestaurantController@index']);
-$router->get('/restaurants/{restaurant_id}', ['as' => 'restaurants.show', 'uses' => 'RestaurantController@show']);
 $router->get('/restaurants/{restaurant_id}/products', ['as' => 'restaurants.products.index', 'uses' => 'ProductController@index']);
 $router->get('/restaurants/{restaurant_id}/menus', ['as' => 'restaurants.menus.index', 'uses' => 'MenuController@index']);
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.show', 'uses' => 'MenuController@show']);
+$router->post('/restaurants/{restaurant_id}/menus', ['as' => 'restaurants.menus.store', 'uses' => 'MenuController@store']);
+$router->patch('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.update', 'uses' => 'MenuController@update']);
+$router->delete('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.destroy', 'uses' => 'MenuController@destroy']);
+
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}/products', ['as' => 'restaurants.menus.products.index', 'uses' => 'ProductController@index']);
 
 $router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.delete', 'uses' => 'RestaurantController@delete']);
+
 $router->patch('/restaurants/{restaurant_id}', ['as' => 'restaurants.update', 'uses' => 'RestaurantController@update']);
