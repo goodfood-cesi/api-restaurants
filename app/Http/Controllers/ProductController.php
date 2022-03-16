@@ -23,10 +23,8 @@ class ProductController extends Controller{
     }
 
     public function show(int $restaurant_id, int $product_id): JsonResponse {
-        try {
-            return $this->success(new ProductResource(Restaurant::findOrFail($restaurant_id)?->products()->findOrFail($product_id)), 'Product fetched');
-        } catch (Exception $e){
-            return $this->error('Resource does not exist.');
-        }
+        return $this->success(new ProductResource(
+            Restaurant::findOrFail($restaurant_id)->products()->findOrFail($product_id)
+        ), 'Products loaded');
     }
 }
