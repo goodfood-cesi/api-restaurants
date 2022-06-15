@@ -12,6 +12,16 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->get('/', function () use ($router) {
+    $response = [
+        'data' => "Good Food API - Restaurants",
+        'meta' => [
+            'success' => true,
+            'message' => 'API',
+        ],
+    ];
+    return response()->json($response);
+});
 
 $router->get('/restaurants', ['as' => 'restaurants.index', 'uses' => 'RestaurantController@index']);
 $router->get('/restaurants/{restaurant_id}', ['as' => 'restaurants.show', 'uses' => 'RestaurantController@show']);
