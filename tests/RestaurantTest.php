@@ -116,7 +116,6 @@ class RestaurantTest extends TestCase {
         $products = Product::factory()->count(10)->create();
         $restaurant->products()->attach($products);
 
-
         $this->get(route('restaurants.products.index', ['restaurant_id' => $restaurant->id]));
         $this->seeStatusCode(200);
         $this->seeJsonStructure([
@@ -158,5 +157,29 @@ class RestaurantTest extends TestCase {
                 'message'
             ]
         ]);
+    }
+
+    public function test_can_delete_a_single_restaurant() {
+        
+    }
+    
+    public function test_can_update_a_single_restaurant() {
+            
+    }
+    
+    public function test_can_delete_a_single_menu_from_a_restaurant() {
+            
+    }
+    
+    public function test_can_update_a_single_menu_from_a_restaurant() {
+            
+    }
+    
+    public function test_can_delete_a_single_product_from_a_restaurant() {
+            
+    }
+    
+    public function test_can_update_a_single_product_from_a_restaurant() {
+            
     }
 }
