@@ -22,11 +22,6 @@ $router->delete('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restau
 
 $router->get('/restaurants/{restaurant_id}/menus/{menu_id}/products', ['as' => 'restaurants.menus.products.index', 'uses' => 'ProductController@index']);
 
-<<<<<<< Updated upstream
-$router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.delete', 'uses' => 'RestaurantController@delete']);
-
-$router->patch('/restaurants/{restaurant_id}', ['as' => 'restaurants.update', 'uses' => 'RestaurantController@update']);
-=======
 $router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.destroy', 'uses' => 'RestaurantController@destroy']);
 $router->delete('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.destroy', 'uses' => 'MenuController@destroy']);
 $router->delete('/restaurants/{restaurant_id}/products/{product_id}', ['as' => 'restaurants.products.destroy', 'uses' => 'ProductController@destroy']);
@@ -34,4 +29,3 @@ $router->delete('/restaurants/{restaurant_id}/products/{product_id}', ['as' => '
 $router->put('/restaurants/{restaurant_id}', ['as' => 'restaurants.update', 'uses' => 'RestaurantController@update']);
 $router->put('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.update', 'uses' => 'MenuController@update']);
 $router->put('/restaurants/{restaurant_id}/products/{product_id}', ['as' => 'restaurants.products.update', 'uses' => 'ProductController@update']);
->>>>>>> Stashed changes
