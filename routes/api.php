@@ -1,6 +1,8 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+use Laravel\Lumen\Routing\Router;
+
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,25 +15,35 @@
 |
 */
 
-$router->get('/restaurants/{restaurant_id}/products', ['as' => 'restaurants.products.index', 'uses' => 'ProductController@index']);
-$router->get('/restaurants/{restaurant_id}/menus', ['as' => 'restaurants.menus.index', 'uses' => 'MenuController@index']);
-$router->get('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.show', 'uses' => 'MenuController@show']);
-$router->post('/restaurants/{restaurant_id}/menus', ['as' => 'restaurants.menus.store', 'uses' => 'MenuController@store']);
-$router->patch('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.update', 'uses' => 'MenuController@update']);
-$router->delete('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.destroy', 'uses' => 'MenuController@destroy']);
+$router->group(['prefix' => 'restaurants'], function (Router $router) {
+    $router->get('/', 'RestaurantController@index');
+    $router->get('/{restaurant_id}', 'RestaurantController@show');
+    $router->post('/', 'RestaurantController@store');
+    $router->patch('/{restaurant_id}', 'RestaurantController@update');
+    $router->put('/{restaurant_id}', 'RestaurantController@update');
+    $router->delete('/{restaurant_id}', 'RestaurantController@destroy');
 
-$router->get('/restaurants/{restaurant_id}/menus/{menu_id}/products', ['as' => 'restaurants.menus.products.index', 'uses' => 'ProductController@index']);
+    $router->group(['prefix' => '{restaurant_id}/menus'], function (Router $router) {
+        $router->get('/', 'MenuController@index');
+        $router->get('/{menu_id}', 'MenuController@show');
+        $router->post('/', 'MenuController@store');
+        $router->patch('/{menu_id}', 'MenuController@update');
+        $router->put('/{menu_id}', 'MenuController@update');
+        $router->delete('/{menu_id}', 'MenuController@destroy');
 
-<<<<<<< Updated upstream
-$router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.delete', 'uses' => 'RestaurantController@delete']);
+        $router->get('/{menu_id}/products', 'ProductController@index');
+    });
 
-$router->patch('/restaurants/{restaurant_id}', ['as' => 'restaurants.update', 'uses' => 'RestaurantController@update']);
-=======
-$router->delete('/restaurants/{restaurant_id}', ['as' => 'restaurants.destroy', 'uses' => 'RestaurantController@destroy']);
-$router->delete('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.destroy', 'uses' => 'MenuController@destroy']);
-$router->delete('/restaurants/{restaurant_id}/products/{product_id}', ['as' => 'restaurants.products.destroy', 'uses' => 'ProductController@destroy']);
+    $router->group(['prefix' => '{restaurant_id}/products'], function (Router $router) {
+        $router->get('/', 'ProductController@index');
+        $router->get('/{product_id}', 'ProductController@show');
+        $router->post('/', 'ProductController@store');
+        $router->patch('/{product_id}', 'ProductController@update');
+        $router->put('/{product_id}', 'ProductController@update');
+        $router->delete('/{product_id}', 'ProductController@destroy');
+    });
+});
 
-$router->put('/restaurants/{restaurant_id}', ['as' => 'restaurants.update', 'uses' => 'RestaurantController@update']);
-$router->put('/restaurants/{restaurant_id}/menus/{menu_id}', ['as' => 'restaurants.menus.update', 'uses' => 'MenuController@update']);
-$router->put('/restaurants/{restaurant_id}/products/{product_id}', ['as' => 'restaurants.products.update', 'uses' => 'ProductController@update']);
->>>>>>> Stashed changes
+
+
+
