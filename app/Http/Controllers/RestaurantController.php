@@ -16,8 +16,7 @@ class RestaurantController extends Controller{
         return $this->success(new RestaurantResource(Restaurant::findOrFail($restaurant_id)), 'Restaurant loaded');
     }
 
-    public function update(Request $request, int $restaurant_id): JsonResponse {
-        $restaurant = Restaurant::findOrFail($restaurant_id);
+    public function store(Request $request): JsonResponse {
         $input = $this->validate($request,[
             'name' => 'required|string',
             'image' => 'required|string',
@@ -25,6 +24,28 @@ class RestaurantController extends Controller{
             'latitude' => 'required|string',
             'longitude' => 'required|string',
             'phone' => 'required|string',
+            'monday' => 'nullable|string',
+            'tuesday' => 'nullable|string',
+            'wednesday' => 'nullable|string',
+            'thursday' => 'nullable|string',
+            'friday' => 'nullable|string',
+            'saturday' => 'nullable|string',
+            'sunday' => 'nullable|string',
+        ]);
+
+        $restaurant = Restaurant::create($input);
+        return $this->ressourceCreated(new RestaurantResource($restaurant), 'Restaurant created');
+    }
+
+    public function update(Request $request, int $restaurant_id): JsonResponse {
+        $restaurant = Restaurant::findOrFail($restaurant_id);
+        $input = $this->validate($request,[
+            'name' => 'string',
+            'image' => 'string',
+            'address' => 'string',
+            'latitude' => 'string',
+            'longitude' => 'string',
+            'phone' => 'string',
             'monday' => 'nullable|string',
             'tuesday' => 'nullable|string',
             'wednesday' => 'nullable|string',
