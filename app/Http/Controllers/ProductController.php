@@ -23,8 +23,6 @@ class ProductController extends Controller{
             return $this->error('Resource does not exist.');
         }
     }
-<<<<<<< Updated upstream
-=======
 
     public function show(int $restaurant_id, int $product_id): JsonResponse {
         return $this->success(new ProductResource(
@@ -66,5 +64,4 @@ class ProductController extends Controller{
             return $this->error($e->getMessage());
         }
     }
->>>>>>> Stashed changes
 }
