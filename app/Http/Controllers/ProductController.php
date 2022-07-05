@@ -4,24 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
 use App\Models\Restaurant;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller{
     public function index(int $restaurant_id, int $menu_id = null): JsonResponse {
-        try {
-            $restaurant = Restaurant::findOrFail($restaurant_id);
-            if(isset($menu_id)){
-                $products = $restaurant->menus()->findOrFail($menu_id)?->products;
-            } else {
-                $products = $restaurant->products;
-            }
-            return $this->success(ProductResource::collection($products), 'Products loaded');
-        } catch (Exception $e){
-            return $this->error('Resource does not exist.');
+        $restaurant = Restaurant::findOrFail($restaurant_id);
+        if(isset($menu_id)){
+            $products = $restaurant->menus()->findOrFail($menu_id)?->products;
+        } else {
+            $products = $restaurant->products;
         }
+        return $this->success(ProductResource::collection($products), 'Products loaded');
     }
 
     public function show(int $restaurant_id, int $product_id): JsonResponse {
@@ -30,38 +25,42 @@ class ProductController extends Controller{
         ), 'Products loaded');
     }
 
-    public function destroy(int $restaurant_id, int $product_id): JsonResponse {
-        try {
-            return $this->success((Restaurant::findOrFail($restaurant_id)->products()->findOrFail($product_id))->delete(), 'Product deleted');
-        } catch (Exception $e){
-            return $this->error($e->getMessage());
-        }
+    public function store(Request $request, int $restaurant_id): JsonResponse {
+        $input = $this->validate($request,[
+            'name' => 'required|string',
+            'image' => 'required|file|mimes:jpg,png,jpeg,gif,svg,tif,tiff,bmp,gif,xe2,webp,heic,pdf|max:5000',
+            'amount' => 'required|between:0,99.99',
+            'description' => 'required|string',
+        ]);
+
+        $file = $request->file('image');
+        $extension = $file->extension();
+        $input['image'] = $_ENV['AWS_BUCKET_URL'] . '/' . $file->storePubliclyAs('', Str::uuid() . '.' . $extension, 's3');
+
+        $product = Restaurant::findOrFail($restaurant_id)->products()->create($input);
+        return $this->ressourceCreated(new ProductResource($product), 'Product created');
     }
 
     public function update(Request $request, int $restaurant_id, int $product_id): JsonResponse {
-        try {
-            $product = Restaurant::findOrFail($restaurant_id)?->products()->findOrFail($product_id);
+        $product = Restaurant::findOrFail($restaurant_id)?->products()->findOrFail($product_id);
 
-            $validator = Validator::make($request->all(),[
-                'name' => 'required|string',
-                'image' => 'required|string',
-                'amount' => 'required|between:0,99.99',
-                'description' => 'required|string',
-            ]);
+        $input = $this->validate($request,[
+            'name' => 'string',
+            'image' => 'file|mimes:jpg,png,jpeg,gif,svg,tif,tiff,bmp,gif,xe2,webp,heic,pdf|max:5000',
+            'amount' => 'between:0,99.99',
+            'description' => 'required|string',
+        ]);
 
-            if($validator->fails()){
-                return $this->error('Wrong informations');    
-            }
+        $file = $request->file('image');
+        $extension = $file->extension();
+        $input['image'] = $_ENV['AWS_BUCKET_URL'] . '/' . $file->storePubliclyAs('', Str::uuid() . '.' . $extension, 's3');
 
-            $product->name = $request->input('name');
-            $product->image = $request->input('image'); 
-            $product->amount = $request->input('amount'); 
-            $product->description = $request->input('description');
-            $product->save();
+        $product->update($input);
+        return $this->success(new ProductResource($product), 'Product updated');
+    }
 
-            return $this->success('Product updated');
-        } catch (Exception $e){
-            return $this->error($e->getMessage());
-        }
+    public function destroy(int $restaurant_id, int $product_id): JsonResponse {
+        Restaurant::findOrFail($restaurant_id)?->products()->findOrFail($product_id)?->delete();
+        return $this->ressourceDeleted();
     }
 }

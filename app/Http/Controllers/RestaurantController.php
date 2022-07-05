@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller{
     public function index(): JsonResponse {
@@ -15,19 +13,28 @@ class RestaurantController extends Controller{
     }
 
     public function show(int $restaurant_id): JsonResponse {
-        try {
-            return $this->success(new RestaurantResource(Restaurant::findOrFail($restaurant_id)), 'Restaurant loaded');
-        } catch (Exception $e){
-            return $this->error('Restaurant does not exist.');
-        }
+        return $this->success(new RestaurantResource(Restaurant::findOrFail($restaurant_id)), 'Restaurant loaded');
     }
 
-    public function destroy(int $restaurant_id): JsonResponse {
-        try {
-            return $this->success((Restaurant::findOrFail($restaurant_id))->delete(), 'Restaurant deleted');
-        } catch (Exception $e){
-            return $this->error('An error occured');
-        }
+    public function store(Request $request): JsonResponse {
+        $input = $this->validate($request,[
+            'name' => 'required|string',
+            'image' => 'required|string',
+            'address' => 'required|string',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+            'phone' => 'required|string',
+            'monday' => 'nullable|string',
+            'tuesday' => 'nullable|string',
+            'wednesday' => 'nullable|string',
+            'thursday' => 'nullable|string',
+            'friday' => 'nullable|string',
+            'saturday' => 'nullable|string',
+            'sunday' => 'nullable|string',
+        ]);
+
+        $restaurant = Restaurant::create($input);
+        return $this->ressourceCreated(new RestaurantResource($restaurant), 'Restaurant created');
     }
 
     public function update(Request $request, int $restaurant_id): JsonResponse {
@@ -35,7 +42,7 @@ class RestaurantController extends Controller{
         $input = $this->validate($request,[
             'name' => 'string',
             'image' => 'string',
-            'adress' => 'string',
+            'address' => 'string',
             'latitude' => 'string',
             'longitude' => 'string',
             'phone' => 'string',
@@ -46,8 +53,14 @@ class RestaurantController extends Controller{
             'friday' => 'nullable|string',
             'saturday' => 'nullable|string',
             'sunday' => 'nullable|string',
-       ]);
-       $restaurant->update($input);
-       $this->resourceUpdated(new RestaurantResource($restaurant), 'Restaurant Updated');
+        ]);
+
+        $restaurant->update($input);
+        return $this->success(new RestaurantResource($restaurant), 'Restaurant updated');
+    }
+
+    public function destroy(int $restaurant_id): JsonResponse {
+        Restaurant::findOrFail($restaurant_id)?->delete();
+        return $this->ressourceDeleted();
     }
 }
