@@ -160,15 +160,47 @@ class RestaurantTest extends TestCase {
     }
 
     public function test_can_delete_a_single_restaurant() {
-        
+        $restaurant = Restaurant::factory()->create();
+        $this->delete(route('restaurants.destroy', ['restaurant_id' => $restaurant->id]));
+        $this->seeStatusCode(200);
+
+        $this->seeJsonStructure([
+            'data',
+            'meta' => [
+                'success',
+                'message'
+            ]
+        ]);
     }
     
     public function test_can_update_a_single_restaurant() {
-            
+        /*$restaurant = Restaurant::factory()->create();
+        $this->put(route('restaurants.update', [JE SECHE ICI, 'restaurant_id' => $restaurant->id]));
+        $this->seeStatusCode(200);
+
+        $this->seeJsonStructure([
+            'data',
+            'meta' => [
+                'success',
+                'message'
+            ]
+        ]);*/
     }
     
     public function test_can_delete_a_single_menu_from_a_restaurant() {
-            
+        $restaurant = Restaurant::factory()->create();
+        $menu = Menu::factory()->create();
+        $menu->restaurants()->attach($restaurant);
+
+        $this->delete(route('restaurants.menus.destroy', ['restaurant_id' => $restaurant->id, 'menu_id' => $menu->id]));
+        $this->seeStatusCode(200);
+        $this->seeJsonStructure([
+            'data',
+            'meta' => [
+                'success',
+                'message'
+            ]
+        ]);
     }
     
     public function test_can_update_a_single_menu_from_a_restaurant() {
@@ -176,7 +208,19 @@ class RestaurantTest extends TestCase {
     }
     
     public function test_can_delete_a_single_product_from_a_restaurant() {
-            
+        $restaurant = Restaurant::factory()->create();
+        $products = Product::factory()->create();
+        $restaurant->products()->attach($products);
+
+        $this->delete(route('restaurants.products.destroy', ['restaurant_id' => $restaurant->id, 'product_id' => $products->id]));
+        $this->seeStatusCode(200);
+        $this->seeJsonStructure([
+            'data',
+            'meta' => [
+                'success',
+                'message'
+            ]
+        ]);     
     }
     
     public function test_can_update_a_single_product_from_a_restaurant() {
