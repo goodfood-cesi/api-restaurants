@@ -6,7 +6,6 @@ use App\Http\Resources\MenuResource;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class MenuController extends Controller {
     public function index(int $restaurant_id): JsonResponse {
@@ -20,14 +19,10 @@ class MenuController extends Controller {
     public function store(Request $request, int $restaurant_id): JsonResponse {
         $input = $this->validate($request,[
             'name' => 'required|string',
-            'image' => 'required|file|mimes:jpg,png,jpeg,gif,svg,tif,tiff,bmp,gif,xe2,webp,heic,pdf|max:5000',
+            'image' => 'required|string',
             'amount' => 'required|between:0,99.99',
             'description' => 'required|string',
         ]);
-
-        $file = $request->file('image');
-        $extension = $file->extension();
-        $input['image'] = $_ENV['AWS_BUCKET_URL'] . '/' . $file->storePubliclyAs('', Str::uuid() . '.' . $extension, 's3');
 
         $menu = Restaurant::findOrFail($restaurant_id)->menus()->create($input);
         return $this->ressourceCreated(new MenuResource($menu), 'Menu created');
@@ -38,14 +33,10 @@ class MenuController extends Controller {
 
         $input = $this->validate($request,[
             'name' => 'string',
-            'image' => 'file|mimes:jpg,png,jpeg,gif,svg,tif,tiff,bmp,gif,xe2,webp,heic,pdf|max:5000',
-            'amount' => 'between:0,99.99',
+            'image' => 'string',
+            'amount' => 'numeric|between:0,99.99',
             'description' => 'string',
         ]);
-
-        $file = $request->file('image');
-        $extension = $file->extension();
-        $input['image'] = $_ENV['AWS_BUCKET_URL'] . '/' . $file->storePubliclyAs('', Str::uuid() . '.' . $extension, 's3');
 
         $menu->update($input);
         return $this->success(new MenuResource($menu),'Menu updated');
