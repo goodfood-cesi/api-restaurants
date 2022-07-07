@@ -28,14 +28,10 @@ class ProductController extends Controller{
     public function store(Request $request, int $restaurant_id): JsonResponse {
         $input = $this->validate($request,[
             'name' => 'required|string',
-            'image' => 'required|file|mimes:jpg,png,jpeg,gif,svg,tif,tiff,bmp,gif,xe2,webp,heic,pdf|max:5000',
+            'image' => 'required|string',
             'amount' => 'required|between:0,99.99',
             'description' => 'required|string',
         ]);
-
-        $file = $request->file('image');
-        $extension = $file->extension();
-        $input['image'] = $_ENV['AWS_BUCKET_URL'] . '/' . $file->storePubliclyAs('', Str::uuid() . '.' . $extension, 's3');
 
         $product = Restaurant::findOrFail($restaurant_id)->products()->create($input);
         return $this->ressourceCreated(new ProductResource($product), 'Product created');
@@ -46,14 +42,10 @@ class ProductController extends Controller{
 
         $input = $this->validate($request,[
             'name' => 'string',
-            'image' => 'file|mimes:jpg,png,jpeg,gif,svg,tif,tiff,bmp,gif,xe2,webp,heic,pdf|max:5000',
+            'image' => 'string',
             'amount' => 'between:0,99.99',
-            'description' => 'required|string',
+            'description' => 'string',
         ]);
-
-        $file = $request->file('image');
-        $extension = $file->extension();
-        $input['image'] = $_ENV['AWS_BUCKET_URL'] . '/' . $file->storePubliclyAs('', Str::uuid() . '.' . $extension, 's3');
 
         $product->update($input);
         return $this->success(new ProductResource($product), 'Product updated');
