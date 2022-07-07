@@ -26,13 +26,13 @@ class RestaurantFactory extends Factory {
             'latitude' => $this->faker->latitude(36.1426653, 59.3696544),
             'longitude' => $this->faker->longitude(-5.4716872, 28.0401234),
             'phone' => $this->faker->phoneNumber,
-            'monday' => "11h00 - 14h00 / 18h00 - 22h00",
-            'tuesday' => "11h00 - 14h00 / 18h00 - 22h00",
-            'wednesday' => "11h00 - 14h00 / 18h00 - 22h00",
-            'thursday' => "11h00 - 14h00 / 18h00 - 22h00",
-            'friday' => "11h00 - 14h00 / 18h00 - 22h00",
-            'saturday' => "11h00 - 14h00 / 18h00 - 22h00",
-            'sunday' => "Fermé"
+            'monday' => '11h00 - 14h00 / 18h00 - 22h00',
+            'tuesday' => '11h00 - 14h00 / 18h00 - 22h00',
+            'wednesday' => '11h00 - 14h00 / 18h00 - 22h00',
+            'thursday' => '11h00 - 14h00 / 18h00 - 22h00',
+            'friday' => '11h00 - 14h00 / 18h00 - 22h00',
+            'saturday' => '11h00 - 14h00 / 18h00 - 22h00',
+            'sunday' => 'Fermé'
         ];
     }
 }
