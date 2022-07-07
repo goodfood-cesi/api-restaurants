@@ -16,32 +16,32 @@ use Laravel\Lumen\Routing\Router;
 */
 
 $router->group(['prefix' => 'restaurants'], function (Router $router) {
-    $router->get('/', ['as' => 'restaurant.index', 'uses' => 'RestaurantController@index']);
-    $router->get('/{restaurant_id}', ['as' => 'restaurant.show', 'uses' => 'RestaurantController@show']);
+    $router->get('/', ['as' => 'restaurants.index', 'uses' => 'RestaurantController@index']);
+    $router->get('/{restaurant_id}', ['as' => 'restaurants.show', 'uses' => 'RestaurantController@show']);
     $router->group(['middleware' => 'auth'], function (Router $router) {
-        $router->post('/', ['as' => 'restaurant.store', 'uses' => 'RestaurantController@store']);
-        $router->patch('/{restaurant_id}', ['as' => 'restaurant.update', 'uses' => 'RestaurantController@update']);
-        $router->delete('/{restaurant_id}', ['as' => 'restaurant.destroy', 'uses' => 'RestaurantController@destroy']);
+        $router->post('/', ['as' => 'restaurants.store', 'uses' => 'RestaurantController@store']);
+        $router->patch('/{restaurant_id}', ['as' => 'restaurants.update', 'uses' => 'RestaurantController@update']);
+        $router->delete('/{restaurant_id}', ['as' => 'restaurants.destroy', 'uses' => 'RestaurantController@destroy']);
     });
 
     $router->group(['prefix' => '{restaurant_id}/menus'], function (Router $router) {
-        $router->get('/', ['as' => 'restaurant.menus.index', 'uses' => 'MenuController@index']);
-        $router->get('/{menu_id}', ['as' => 'restaurant.menus.show', 'uses' => 'MenuController@show']);
-        $router->get('/{menu_id}/products', ['as' => 'restaurant.menus.products.index', 'uses' => 'ProductController@index']);
+        $router->get('/', ['as' => 'restaurants.menus.index', 'uses' => 'MenuController@index']);
+        $router->get('/{menu_id}', ['as' => 'restaurants.menus.show', 'uses' => 'MenuController@show']);
+        $router->get('/{menu_id}/products', ['as' => 'restaurants.menus.products.index', 'uses' => 'ProductController@index']);
         $router->group(['middleware' => 'auth'], function (Router $router) {
-            $router->post('/', ['as' => 'restaurant.menus.store', 'uses' => 'MenuController@store']);
-            $router->patch('/{menu_id}', ['as' => 'restaurant.menus.update', 'uses' => 'MenuController@update']);
-            $router->delete('/{menu_id}', ['as' => 'restaurant.menus.delete', 'uses' => 'MenuController@destroy']);
+            $router->post('/', ['as' => 'restaurants.menus.store', 'uses' => 'MenuController@store']);
+            $router->patch('/{menu_id}', ['as' => 'restaurants.menus.update', 'uses' => 'MenuController@update']);
+            $router->delete('/{menu_id}', ['as' => 'restaurants.menus.destroy', 'uses' => 'MenuController@destroy']);
         });
     });
 
     $router->group(['prefix' => '{restaurant_id}/products'], function (Router $router) {
-        $router->get('/', ['as' => 'restaurant.products.index', 'uses' =>'ProductController@index']);
-        $router->get('/{product_id}', ['as' => 'restaurant.products.show', 'uses' => 'ProductController@show']);
+        $router->get('/', ['as' => 'restaurants.products.index', 'uses' =>'ProductController@index']);
+        $router->get('/{product_id}', ['as' => 'restaurants.products.show', 'uses' => 'ProductController@show']);
         $router->group(['middleware' => 'auth'], function (Router $router) {
-            $router->post('/', ['as' => 'restaurant.products.store', 'uses' => 'ProductController@store']);
-            $router->patch('/{product_id}', ['as' => 'restaurant.products.update', 'uses' => 'ProductController@update']);
-            $router->delete('/{product_id}', ['as' => 'restaurant.products.delete', 'uses' => 'ProductController@destroy']);
+            $router->post('/', ['as' => 'restaurants.products.store', 'uses' => 'ProductController@store']);
+            $router->patch('/{product_id}', ['as' => 'restaurants.products.update', 'uses' => 'ProductController@update']);
+            $router->delete('/{product_id}', ['as' => 'restaurants.products.destroy', 'uses' => 'ProductController@destroy']);
         });
     });
 });
