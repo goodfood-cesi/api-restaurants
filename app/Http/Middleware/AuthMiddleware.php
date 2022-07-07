@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -27,7 +28,7 @@ class AuthMiddleware {
             }
 
             $jwt = str_replace('Bearer ', '', $request->header('Authorization'));
-            $token = JWT::decode($jwt, $_ENV['JWT_PUBLIC_KEY']);
+            $token = JWT::decode($jwt, new Key($_ENV['JWT_PUBLIC_KEY'], 'RS256'));
         } catch (Exception $e) {
             $response = new Response();
             $response->setContent([
