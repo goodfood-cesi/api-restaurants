@@ -21,6 +21,13 @@ class CreateRestaurantsTable extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->string('phone');
+            $table->string('monday')->nullable();
+            $table->string('tuesday')->nullable();
+            $table->string('wednesday')->nullable();
+            $table->string('thursday')->nullable();
+            $table->string('friday')->nullable();
+            $table->string('saturday')->nullable();
+            $table->string('sunday')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

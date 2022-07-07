@@ -1,8 +1,6 @@
 <?php
 
-use Laravel\Lumen\Routing\Router;
-
-/** @var Router $router */
+/** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +12,16 @@ use Laravel\Lumen\Routing\Router;
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->get('/', function () use ($router) {
+    $response = [
+        'data' => "Good Food API - Restaurants",
+        'meta' => [
+            'success' => true,
+            'message' => 'API',
+        ],
+    ];
+    return response()->json($response);
+});
 
 $router->group(['prefix' => 'restaurants'], function (Router $router) {
     $router->get('/', ['as' => 'restaurants.index', 'uses' => 'RestaurantController@index']);
