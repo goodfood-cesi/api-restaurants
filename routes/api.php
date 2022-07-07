@@ -16,35 +16,32 @@ use Laravel\Lumen\Routing\Router;
 */
 
 $router->group(['prefix' => 'restaurants'], function (Router $router) {
-    $router->get('/','RestaurantController@index');
-    $router->get('/{restaurant_id}', 'RestaurantController@show');
+    $router->get('/', ['as' => 'restaurant.index', 'uses' => 'RestaurantController@index']);
+    $router->get('/{restaurant_id}', ['as' => 'restaurant.show', 'uses' => 'RestaurantController@show']);
     $router->group(['middleware' => 'auth'], function (Router $router) {
-        $router->post('/', 'RestaurantController@store');
-        $router->patch('/{restaurant_id}', 'RestaurantController@update');
-        $router->put('/{restaurant_id}', 'RestaurantController@update');
-        $router->delete('/{restaurant_id}', 'RestaurantController@destroy');
+        $router->post('/', ['as' => 'restaurant.store', 'uses' => 'RestaurantController@store']);
+        $router->patch('/{restaurant_id}', ['as' => 'restaurant.update', 'uses' => 'RestaurantController@update']);
+        $router->delete('/{restaurant_id}', ['as' => 'restaurant.destroy', 'uses' => 'RestaurantController@destroy']);
     });
 
     $router->group(['prefix' => '{restaurant_id}/menus'], function (Router $router) {
-        $router->get('/', 'MenuController@index');
-        $router->get('/{menu_id}', 'MenuController@show');
-        $router->get('/{menu_id}/products', 'ProductController@index');
+        $router->get('/', ['as' => 'restaurant.menus.index', 'uses' => 'MenuController@index']);
+        $router->get('/{menu_id}', ['as' => 'restaurant.menus.show', 'uses' => 'MenuController@show']);
+        $router->get('/{menu_id}/products', ['as' => 'restaurant.menus.products.index', 'uses' => 'ProductController@index']);
         $router->group(['middleware' => 'auth'], function (Router $router) {
-            $router->post('/', 'MenuController@store');
-            $router->patch('/{menu_id}', 'MenuController@update');
-            $router->put('/{menu_id}', 'MenuController@update');
-            $router->delete('/{menu_id}', 'MenuController@destroy');
+            $router->post('/', ['as' => 'restaurant.menus.store', 'uses' => 'MenuController@store']);
+            $router->patch('/{menu_id}', ['as' => 'restaurant.menus.update', 'uses' => 'MenuController@update']);
+            $router->delete('/{menu_id}', ['as' => 'restaurant.menus.delete', 'uses' => 'MenuController@destroy']);
         });
     });
 
     $router->group(['prefix' => '{restaurant_id}/products'], function (Router $router) {
-        $router->get('/', 'ProductController@index');
-        $router->get('/{product_id}', 'ProductController@show');
+        $router->get('/', ['as' => 'restaurant.products.index', 'uses' =>'ProductController@index']);
+        $router->get('/{product_id}', ['as' => 'restaurant.products.show', 'uses' => 'ProductController@show']);
         $router->group(['middleware' => 'auth'], function (Router $router) {
-            $router->post('/', 'ProductController@store');
-            $router->patch('/{product_id}', 'ProductController@update');
-            $router->put('/{product_id}', 'ProductController@update');
-            $router->delete('/{product_id}', 'ProductController@destroy');
+            $router->post('/', ['as' => 'restaurant.products.store', 'uses' => 'ProductController@store']);
+            $router->patch('/{product_id}', ['as' => 'restaurant.products.update', 'uses' => 'ProductController@update']);
+            $router->delete('/{product_id}', ['as' => 'restaurant.products.delete', 'uses' => 'ProductController@destroy']);
         });
     });
 });
