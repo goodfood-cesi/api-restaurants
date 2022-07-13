@@ -6,7 +6,7 @@ require_once __DIR__.'/../vendor/autoload.php';
     dirname(__DIR__)
 ))->bootstrap();
 
-date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
+date_default_timezone_set(env('APP_TIMEZONE', 'Europe/Paris'));
 
 /*
 |--------------------------------------------------------------------------
@@ -92,10 +92,7 @@ $app->configure('jwt');
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-$app->register(App\Providers\AuthServiceProvider::class);
 $app->register(PHPOpenSourceSaver\JWTAuth\Providers\LumenServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
