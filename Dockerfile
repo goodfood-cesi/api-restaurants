@@ -4,9 +4,6 @@ WORKDIR /app
 RUN apt-get update -qq && \
     apt-get install -qy \
     libzip-dev \
-    libonig-dev \
-    libicu-dev \
-    libsodium-dev \
     git \
     unzip \
     nano \
@@ -14,7 +11,7 @@ RUN apt-get update -qq && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # PHP Extensions
-RUN docker-php-ext-install -j$(nproc) zip opcache pdo_mysql mbstring intl sodium openssl
+RUN docker-php-ext-install -j$(nproc) zip opcache pdo_mysql
 COPY .docker/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Apache
