@@ -1,10 +1,11 @@
 # GoodFood 2.0 - Retaurants Api
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=bugs)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=coverage)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=goodfood-cesi_api-restaurants&metric=bugs)](https://sonarcloud.io/summary/new_code?id=goodfood-cesi_api-restaurants)
 
 API to manage restaurants, menus and products.
 
