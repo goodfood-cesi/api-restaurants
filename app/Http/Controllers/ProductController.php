@@ -19,12 +19,6 @@ class ProductController extends Controller{
         return $this->success(ProductResource::collection($products), 'Products loaded');
     }
 
-    public function show(int $restaurant_id, int $product_id): JsonResponse {
-        return $this->success(new ProductResource(
-            Restaurant::findOrFail($restaurant_id)->products()->findOrFail($product_id)
-        ), 'Products loaded');
-    }
-
     public function store(Request $request, int $restaurant_id): JsonResponse {
         $input = $this->validate($request,[
             'name' => 'required|string',

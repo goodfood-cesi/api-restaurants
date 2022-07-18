@@ -26,20 +26,6 @@ class Handler extends ExceptionHandler {
     ];
 
     /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param \Throwable $exception
-     * @return void
-     *
-     * @throws \Exception
-     */
-    public function report(Throwable $exception) {
-        parent::report($exception);
-    }
-
-    /**
      * Render an exception into an HTTP response.
      *
      * @param \Illuminate\Http\Request $request
@@ -50,7 +36,7 @@ class Handler extends ExceptionHandler {
      */
     public function render($request, Throwable $exception) {
         if ($exception instanceof ModelNotFoundException) {
-            return $this->error('Not Found', 404);
+            return $this->error();
         }
 
         $rendered = parent::render($request, $exception);

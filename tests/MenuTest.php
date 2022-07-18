@@ -9,6 +9,16 @@ class MenuTest extends TestCase {
     use DatabaseMigrations;
 
     //CRUD Menus
+    /**
+     * @covers App\Http\Controllers\MenuController
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Http\Resources\MenuResource
+     * @covers App\Models\Menu
+     * @covers App\Models\Restaurant
+     * @covers App\Models\User
+     * @covers App\Traits\ApiResponser
+     * @return void
+     */
     public function test_can_create_a_menu_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $menu = Menu::factory()->make();
@@ -43,6 +53,14 @@ class MenuTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\MenuController
+     * @covers App\Http\Resources\MenuResource
+     * @covers App\Models\Menu
+     * @covers App\Models\Restaurant
+     * @covers App\Traits\ApiResponser
+     * @return void
+     */
     public function test_can_get_all_menus_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $menus = Menu::factory()->count(10)->create();
@@ -73,6 +91,15 @@ class MenuTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\MenuController
+     * @covers App\Http\Controllers\MenuController
+     * @covers App\Http\Resources\MenuResource
+     * @covers App\Models\Menu
+     * @covers App\Models\Restaurant
+     * @covers App\Traits\ApiResponser
+     * @return void
+     */
     public function test_can_get_a_single_menu_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $menu = Menu::factory()->create();
@@ -98,6 +125,16 @@ class MenuTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\MenuController
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Http\Resources\MenuResource
+     * @covers App\Models\Menu
+     * @covers App\Models\Restaurant
+     * @covers App\Models\User
+     * @covers App\Traits\ApiResponser
+     * @return void
+     */
     public function test_can_update_a_single_menu_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $menu = Menu::factory()->create();
@@ -131,6 +168,15 @@ class MenuTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\MenuController
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Models\Menu
+     * @covers App\Models\Restaurant
+     * @covers App\Models\User
+     * @covers App\Traits\ApiResponser
+     * @return void
+     */
     public function test_can_delete_a_single_menu_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $menu = Menu::factory()->create();

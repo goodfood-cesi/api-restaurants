@@ -9,6 +9,15 @@ class ProductTest extends TestCase{
     use DatabaseMigrations;
 
     //CRUD Products
+    /**
+     * @covers App\Http\Controllers\ProductController
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Http\Resources\ProductResource
+     * @covers App\Models\Restaurant::products
+     * @covers App\Models\User
+     * @covers App\Traits\ApiResponser
+     * @return void
+     */
     public function test_can_create_a_product_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $product = Product::factory()->make();
@@ -43,6 +52,13 @@ class ProductTest extends TestCase{
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\ProductController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Resources\ProductResource
+     * @covers App\Models\Restaurant
+     * @return void
+     */
     public function test_can_get_all_products_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $products = Product::factory()->count(10)->create();
@@ -66,6 +82,14 @@ class ProductTest extends TestCase{
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\ProductController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Resources\ProductResource
+     * @covers App\Models\Menu
+     * @covers App\Models\Restaurant
+     * @return void
+     */
     public function test_can_get_all_products_from_a_single_menu_from_a_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $menu = Menu::factory()->create();
@@ -91,6 +115,16 @@ class ProductTest extends TestCase{
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\ProductController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Http\Resources\ProductResource
+     * @covers App\Models\Product
+     * @covers App\Models\Restaurant
+     * @covers App\Models\User
+     * @return void
+     */
     public function test_can_update_a_single_product_from_a_restaurant() {
         $restaurant = Restaurant::factory()->create();
         $product = Product::factory()->create();
@@ -125,6 +159,14 @@ class ProductTest extends TestCase{
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\ProductController
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Models\Restaurant
+     * @covers App\Models\User
+     * @covers App\Traits\ApiResponser
+     * @return void
+     */
     public function test_can_delete_a_single_product_from_a_restaurant() {
         $restaurant = Restaurant::factory()->create();
         $products = Product::factory()->create();
