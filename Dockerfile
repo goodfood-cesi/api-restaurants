@@ -5,6 +5,7 @@ RUN apt-get update -qq && \
     apt-get install -qy \
     libzip-dev \
     libonig-dev \
+    libicu-dev \
     git \
     unzip \
     nano \
