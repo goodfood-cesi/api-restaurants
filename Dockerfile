@@ -4,6 +4,7 @@ WORKDIR /app
 RUN apt-get update -qq && \
     apt-get install -qy \
     libzip-dev \
+    libonig-dev \
     git \
     unzip \
     nano \
