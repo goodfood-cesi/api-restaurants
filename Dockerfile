@@ -6,6 +6,7 @@ RUN apt-get update -qq && \
     libzip-dev \
     libonig-dev \
     libicu-dev \
+    libsodium-dev \
     git \
     unzip \
     nano \
