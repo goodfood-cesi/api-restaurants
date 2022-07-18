@@ -33,4 +33,8 @@ class Product extends Model {
     public function restaurants(): BelongsToMany {
         return $this->belongsToMany(Restaurant::class, 'restaurants_products');
     }
+
+    public function menus(): BelongsToMany {
+        return $this->belongsToMany(Menu::class, 'menus_products');
+    }
 }
