@@ -7,6 +7,15 @@ class RestaurantTest extends TestCase {
     use DatabaseMigrations;
 
     //CRUD Restaurants
+
+    /**
+     * @covers App\Http\Controllers\RestaurantController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Http\Resources\RestaurantResource
+     * @covers App\Models\User
+     * @return void
+     */
     public function test_can_create_a_restaurant(): void {
         $restaurant = Restaurant::factory()->make(['name' => 'New Restaurant ! :)']);
         $data = [
@@ -16,13 +25,15 @@ class RestaurantTest extends TestCase {
             'latitude' => $restaurant->latitude,
             'longitude' => $restaurant->longitude,
             'phone' => $restaurant->phone,
-            'monday' => $restaurant->monday,
-            'tuesday' => $restaurant->tuesday,
-            'wednesday' => $restaurant->wednesday,
-            'thursday' => $restaurant->thursday,
-            'friday' => $restaurant->friday,
-            'saturday' => $restaurant->saturday,
-            'sunday' => $restaurant->sunday,
+            'days' => [
+                'monday' => $restaurant->monday,
+                'tuesday' => $restaurant->tuesday,
+                'wednesday' => $restaurant->wednesday,
+                'thursday' => $restaurant->thursday,
+                'friday' => $restaurant->friday,
+                'saturday' => $restaurant->saturday,
+                'sunday' => $restaurant->sunday,
+            ],
         ];
 
         $this->post(route('restaurants.store'), $data, ['Authorization' => "Bearer ". $this->fakeLogin()]);
@@ -62,6 +73,12 @@ class RestaurantTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\RestaurantController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Resources\RestaurantResource
+     * @return void
+     */
     public function test_can_get_all_restaurants(): void {
         Restaurant::factory()->count(30)->create();
 
@@ -87,6 +104,12 @@ class RestaurantTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\RestaurantController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Resources\RestaurantResource
+     * @return void
+     */
     public function test_can_get_a_single_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $this->get(route('restaurants.show', ['restaurant_id' => $restaurant->id]));
@@ -110,6 +133,35 @@ class RestaurantTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\RestaurantController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Resources\RestaurantResource
+     * @covers App\Exceptions\Handler
+     * @return void
+     */
+    public function test_cannot_get_a_single_restaurant(): void {
+        Restaurant::factory()->count(15)->create();
+        $this->get(route('restaurants.show', ['restaurant_id' => 0]));
+        $this->seeStatusCode(404);
+
+        $this->seeJson([
+            'data' => 404,
+            'meta' => [
+                'success' => false,
+                'message' => 'Not Found'
+            ]
+        ]);
+    }
+
+    /**
+     * @covers App\Http\Controllers\RestaurantController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Http\Resources\RestaurantResource
+     * @covers App\Models\User
+     * @return void
+     */
     public function test_can_update_a_single_restaurant() {
         $restaurant = Restaurant::factory()->create();
         $this->patch(route('restaurants.update', ['restaurant_id' => $restaurant->id]), ['name' => 'New name'], ['Authorization' => "Bearer ". $this->fakeLogin()]);
@@ -157,6 +209,13 @@ class RestaurantTest extends TestCase {
         ]);
     }
 
+    /**
+     * @covers App\Http\Controllers\RestaurantController
+     * @covers App\Http\Controllers\Controller
+     * @covers App\Http\Middleware\Authenticate
+     * @covers App\Models\User
+     * @return void
+     */
     public function test_can_delete_a_single_restaurant(): void {
         $restaurant = Restaurant::factory()->create();
         $this->delete(route('restaurants.destroy', ['restaurant_id' => $restaurant->id]), [], ['Authorization' => "Bearer ". $this->fakeLogin()]);
